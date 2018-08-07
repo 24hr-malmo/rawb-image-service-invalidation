@@ -1,0 +1,40 @@
+
+.wp-core-ui .pbat--file-picker-button {
+    margin-top: 2rem;
+}
+
+.wp-core-ui .pbat--file-remove-button {
+    margin-top: 2rem;
+}
+
+.asciidocs_file_picker_display {
+    margin-bottom: 1rem;
+}
+
+.vc_wrapper-param-type-asciidocs_file_picker {
+    margin-bottom: 2rem;
+}
+
+.pbat--image-not-found {
+    font-weight: bold;
+    color: red;
+}
+
+.pbat--image-found {
+    font-weight: bold;
+    color: green;
+}
+
+.pbat--header {
+    margin-top: 3rem;
+}
+
+.pbat--link-selector-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+
+.pbat--link-selector-box-title {
+    min-width: 250px;
+}
