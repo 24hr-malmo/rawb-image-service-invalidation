@@ -55,7 +55,7 @@ if ( ! class_exists( 'RAWBImageServiceInvalidation' ) ) {
 
             $this->settings_page = new RAWBImageServiceInvalidationSettings();
 
-            $this->redis = new Credis_Client($this->settings_page->get_redis_host());;
+            $this->redis = new Credis_Client($this->settings_page->get_redis_host(), $this->settings_page->get_redis_port());
 
         }
 

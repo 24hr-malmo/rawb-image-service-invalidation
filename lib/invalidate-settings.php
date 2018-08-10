@@ -14,7 +14,16 @@
                 return 'redis';
             }
 			return $value;
+        }
+
+		public function get_redis_port() {
+            $value = get_option( 'rawb_isi_redis_port' );
+            if ($value === '' || !isset($value)) {
+                return 6379;
+            }
+			return intval($value);
 		}
+
 
         public function add_plugin_page() {
             add_options_page('RAWB Image Service', 'RAWB Image Service settings', 'administrator', __FILE__, array( &$this, 'create_admin_page'));
@@ -43,19 +52,29 @@
 
 			if (!get_option('rawb_isi_redis_host')) {
 				add_option('rawb_isi_redis_host');
+            }
+
+			if (!get_option('rawb_isi_redis_port')) {
+				add_option('rawb_isi_redis_port');
 			}
 
+
             register_setting( 'rawb_isi_options_group', 'rawb_isi_redis_host', array( $this, 'sanitize' ) );
+            register_setting( 'rawb_isi_options_group', 'rawb_isi_redis_port', array( $this, 'sanitize' ) );
 
             add_settings_section(
                 'rawb_isi_settings_section', 'Post types settings', array( $this, 'print_redis_host_info' ), 'rawb_isi_settings'
             );  
 
 			add_settings_field(
-				'rawb_isi_settings', 'Redis host:', array( $this, 'redis_host_callback'), 'rawb_isi_settings', 'rawb_isi_settings_section' 
+				'rawb_isi_settings-host', 'Redis host:', array( $this, 'redis_host_callback'), 'rawb_isi_settings', 'rawb_isi_settings_section' 
 			);      
 
-		}
+			add_settings_field(
+				'rawb_isi_settings-port', 'Redis port:', array( $this, 'redis_port_callback'), 'rawb_isi_settings', 'rawb_isi_settings_section' 
+			);      
+
+        }
 
 		public function sanitize( $input ) {
 			$new_input = array();
@@ -69,13 +88,20 @@
 		}
 
 		public function print_redis_host_info() {
-			print 'Enter redis host. Defaults to "redis":';
+			print 'Enter redis host and the port. The host defaults to "redis" and the port to 6379:';
 		}
 
 		public function redis_host_callback() {
 
 			$value = get_option( 'rawb_isi_redis_host' );
             echo "<div><input placeholder=\"redis\" style=\"width: 50%;\" name=\"rawb_isi_redis_host\" value=\"$value\"/></div>";
+
+		}
+
+		public function redis_port_callback() {
+
+			$value = get_option( 'rawb_isi_redis_port' );
+            echo "<div><input type=\"number\" placeholder=\"6379\" style=\"width: 50%;\" name=\"rawb_isi_redis_port\" value=\"$value\"/></div>";
 
 		}
 
